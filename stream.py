@@ -1,4 +1,5 @@
 import time
+from secret import *
 from getpass import getpass
 from textwrap import TextWrapper
 
@@ -34,11 +35,6 @@ def main():
  #   access_token_secret = getpass('Access Token Secret: ')
 
 
-    consumer_key="ZtrrFdSpTQl2GSpSX64wVyBuD"
-    consumer_secret="UESAJAS1070jSVAgP8Cl6lOKZ2v6MWtT8gFmmdYoa5LYhygsD4"
-
-    access_token="2836047417-wYq0FwAMIRQYbFzOQ6vavEKyK5BBrqVPrS2TvPT"
-    access_token_secret="RaCQTZgUiRWMPK2I2G5Xp6uKKSDfypcJfOnbMHPPBwP6h"
 
 
     auth = tweepy.auth.OAuthHandler(consumer_key, consumer_secret)
