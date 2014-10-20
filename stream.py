@@ -14,6 +14,77 @@ class StreamWatcherListener(tweepy.StreamListener):
         try:
             print self.status_wrapper.fill(status.text)
             print '\n %s  %s  via %s\n' % (status.author.screen_name, status.created_at, status.source)
+
+            print "Tweet Text: ",status.text
+
+            text = status.text
+
+            print "Time Stamp: ",status.created_at
+
+            print "Time Stamp: ",status.created_at
+
+            print "Source: ",status.source
+
+            source = status.source
+
+            print "Author: ",status.user.screen_name
+
+            author = status.user.screen_name
+
+            print "Name: ",status.user.name
+
+            name = status.user.name
+
+            print "Time Zone: ",status.user.time_zone
+
+            time_zone = status.user.time_zone
+
+            print "User Language: ",status.user.lang
+
+            user_language = status.user.lang
+
+            print "Followers: ",status.user.followers_count
+
+            followers = status.user.followers_count
+
+            print "User Description: ",status.user.description
+
+            user_description = status.user.description
+
+            print "Geo Enabled: ",status.user.geo_enabled
+
+            geo_enabled = status.user.geo_enabled
+
+            print "Friends: ",status.user.friends_count
+
+            friends = status.user.friends_count
+
+            print "Retweets: ",status.retweet_count
+
+            retweets = status.retweet_count
+
+            print "Location: ",status.user.location
+
+            location = status.user.location
+
+            print "ID: ",status.user.id_str
+
+            user_id = status.user.id_str
+
+            print "Coordinates: ",status.coordinates
+
+            coordinates = status.coordinates
+
+            print "Place: ",status.place
+
+            place = status.place
+
+
+
+
+
+
+
         except:
             # Catch any unicode errors while printing to console
             # and just ignore them to avoid breaking application.
