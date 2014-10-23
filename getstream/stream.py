@@ -38,7 +38,7 @@ class StreamWatcherListener(tweepy.StreamListener):
             else:
                 coor=""
 
-            add_user=("INSERT INTO `USERS` (`ID_USER`,`NAME`,`TIMEZONE`,`LANGUAGE`,`FOLLOWERS`,`DESCRIPTION`) VALUES (%s,%s,%s,%s,%s,%s)")
+            add_user=("INSERT INTO `USERS` (`ID_USER`,`NAME`,`TIMEZONE`,`LANGUAGE`,`FOLLOWERS`,`DESCRIPTION`) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE FOLLOWERS="+str(status.user.followers_count))
             data_user=(status.user.id_str,status.user.name,status.user.time_zone,status.user.lang,status.user.followers_count,status.user.description)
 
             add_tweet=("INSERT INTO `TWEETS` (`TEXT`,`CREATED_AT`,`RETWEETS`,`ID_USER`,`LOCATION`,`SOURCE`,`COORDINATES`,`GEOENABLE`,`ID_TWITTER`) VALUES (%s,%s,%s,%s,%s,%s,\"%s\",%s,%s)")
@@ -56,6 +56,7 @@ class StreamWatcherListener(tweepy.StreamListener):
         except Exception as e:
             # Catch any unicode errors while printing to console
             # and just ignore them to avoid breaking application.
+            print(e)
             pass
 
     def on_error(self, status_code):
