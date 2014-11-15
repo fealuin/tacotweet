@@ -1,0 +1,39 @@
+<h1>Listing tweets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Retweets</th>
+      <th>Id user</th>
+      <th>Source</th>
+      <th>Coordinates</th>
+      <th>Procesado</th>
+      <th>Geoenable</th>
+      <th>Id twitter</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+        <td><%= tweet.text %></td>
+        <td><%= tweet.retweets %></td>
+        <td><%= tweet.id_user %></td>
+        <td><%= tweet.source %></td>
+        <td><%= tweet.coordinates %></td>
+        <td><%= tweet.procesado %></td>
+        <td><%= tweet.geoenable %></td>
+        <td><%= tweet.id_twitter %></td>
+        <td><%= link_to 'Show', tweet %></td>
+        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
+        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tweet', new_tweet_path %>

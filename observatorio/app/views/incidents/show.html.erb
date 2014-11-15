@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id tweet:</strong>
+  <%= @incident.id_tweet %>
+</p>
+
+<p>
+  <strong>Id itype:</strong>
+  <%= @incident.id_itype %>
+</p>
+
+<%= link_to 'Edit', edit_incident_path(@incident) %> |
+<%= link_to 'Back', incidents_path %>
