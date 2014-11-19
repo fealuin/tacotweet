@@ -3,7 +3,6 @@
 one:
   text: MyString
   retweets: 1
-  id_user: MyString
   source: MyString
   coordinates: MyString
   procesado: 1
@@ -13,7 +12,6 @@ one:
 two:
   text: MyString
   retweets: 1
-  id_user: MyString
   source: MyString
   coordinates: MyString
   procesado: 1

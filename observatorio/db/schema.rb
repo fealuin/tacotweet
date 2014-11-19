@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141114044824) do
+ActiveRecord::Schema.define(version: 20141119014719) do
 
   create_table "incident_types", force: true do |t|
     t.string   "itype_desc", limit: 40
@@ -20,16 +20,18 @@ ActiveRecord::Schema.define(version: 20141114044824) do
   end
 
   create_table "incidents", force: true do |t|
-    t.integer  "id_tweet"
-    t.integer  "id_itype"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "tweet_id"
+    t.integer  "itype_id"
   end
+
+  add_index "incidents", ["itype_id"], name: "index_incidents_on_itype_id", using: :btree
+  add_index "incidents", ["tweet_id"], name: "index_incidents_on_tweet_id", using: :btree
 
   create_table "tweets", force: true do |t|
     t.string   "text"
     t.integer  "retweets"
-    t.string   "id_user",     limit: 100
     t.string   "source",      limit: 100
     t.string   "coordinates"
     t.integer  "procesado"
@@ -37,7 +39,10 @@ ActiveRecord::Schema.define(version: 20141114044824) do
     t.string   "id_twitter",  limit: 100
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name",        limit: 100

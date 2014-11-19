@@ -18,7 +18,7 @@ class TweetsControllerTest < ActionController::TestCase
 
   test "should create tweet" do
     assert_difference('Tweet.count') do
-      post :create, tweet: { coordinates: @tweet.coordinates, geoenable: @tweet.geoenable, id_twitter: @tweet.id_twitter, id_user: @tweet.id_user, procesado: @tweet.procesado, retweets: @tweet.retweets, source: @tweet.source, text: @tweet.text }
+      post :create, tweet: { coordinates: @tweet.coordinates, geoenable: @tweet.geoenable, id_twitter: @tweet.id_twitter, procesado: @tweet.procesado, retweets: @tweet.retweets, source: @tweet.source, text: @tweet.text }
     end
 
     assert_redirected_to tweet_path(assigns(:tweet))
@@ -35,7 +35,7 @@ class TweetsControllerTest < ActionController::TestCase
   end
 
   test "should update tweet" do
-    patch :update, id: @tweet, tweet: { coordinates: @tweet.coordinates, geoenable: @tweet.geoenable, id_twitter: @tweet.id_twitter, id_user: @tweet.id_user, procesado: @tweet.procesado, retweets: @tweet.retweets, source: @tweet.source, text: @tweet.text }
+    patch :update, id: @tweet, tweet: { coordinates: @tweet.coordinates, geoenable: @tweet.geoenable, id_twitter: @tweet.id_twitter, procesado: @tweet.procesado, retweets: @tweet.retweets, source: @tweet.source, text: @tweet.text }
     assert_redirected_to tweet_path(assigns(:tweet))
   end
 

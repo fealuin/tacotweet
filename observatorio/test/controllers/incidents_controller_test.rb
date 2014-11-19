@@ -18,7 +18,7 @@ class IncidentsControllerTest < ActionController::TestCase
 
   test "should create incident" do
     assert_difference('Incident.count') do
-      post :create, incident: { id_itype: @incident.id_itype, id_tweet: @incident.id_tweet }
+      post :create, incident: {  }
     end
 
     assert_redirected_to incident_path(assigns(:incident))
@@ -35,7 +35,7 @@ class IncidentsControllerTest < ActionController::TestCase
   end
 
   test "should update incident" do
-    patch :update, id: @incident, incident: { id_itype: @incident.id_itype, id_tweet: @incident.id_tweet }
+    patch :update, id: @incident, incident: {  }
     assert_redirected_to incident_path(assigns(:incident))
   end
 
