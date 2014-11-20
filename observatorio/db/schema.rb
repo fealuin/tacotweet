@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119014719) do
+ActiveRecord::Schema.define(version: 20141120012341) do
 
   create_table "incident_types", force: true do |t|
     t.string   "itype_desc", limit: 40
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141119014719) do
   create_table "tweets", force: true do |t|
     t.string   "text"
     t.integer  "retweets"
+    t.string   "id_user",     limit: 100
     t.string   "source",      limit: 100
     t.string   "coordinates"
     t.integer  "procesado"

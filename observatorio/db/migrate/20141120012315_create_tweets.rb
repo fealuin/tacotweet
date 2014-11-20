@@ -3,6 +3,7 @@ class CreateTweets < ActiveRecord::Migration
     create_table :tweets do |t|
       t.string :text
       t.integer :retweets
+      t.string :id_user, limit: 100
       t.string :source, limit: 100
       t.string :coordinates
       t.integer :procesado
