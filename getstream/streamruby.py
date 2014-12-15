@@ -56,8 +56,8 @@ class StreamWatcherListener(tweepy.StreamListener):
 #            print(status.coordinates[u'coordinates'])
             if status.coordinates:
                 coor=status.coordinates[u'coordinates']
-                lat=coor[0]
-                lon=coor[1]
+                lat=coor[1]
+                lon=coor[0]
                # print coor[0],coor[1]
             else:
                 coor=""
@@ -74,11 +74,11 @@ class StreamWatcherListener(tweepy.StreamListener):
             if(ifTaco(status.text)>=1 and lat!=0):
                 data_incident=(status.id_str,1,lat,lon)
                 cursor.execute(add_incident,data_incident)
-                print 'SE HA DETECTADO TACO!!\n'+status.text
+                print '--SE HA DETECTADO TACO!!\n--'+status.text
             if(ifAccidente(status.text)>=1 and lat!=0):
                 data_incident=(status.id_str,2,lat,lon)
                 cursor.execute(add_incident,data_incident)
-                print 'SE HA DETECTADO ACCIDENTE!!\n'+status.text
+                print '--SE HA DETECTADO ACCIDENTE!!\n--'+status.text
 
 
  #cursor.execute(add_user,data_user)
