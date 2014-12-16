@@ -1,0 +1,6 @@
+Mon Dec 15 13:56:15 UTC 2014
+nohup: ignoring input
+streamruby.py:85: Warning: Incorrect string value: '\xF0\x9F\x98\x8D \xF0...' for column 'text' at row 1
+  cursor.execute(add_tweet,data_tweet)
+
+Goodbye!

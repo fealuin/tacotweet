@@ -5,32 +5,11 @@ from textwrap import TextWrapper
 import tweepy
 import MySQLdb
 
-
-def ifTaco(text):
-    palabrasTaco=['trafico','congestion','transito','semaforo']
-    i=0
-    tweet=text.lower().split(' ')
-    for palabra in palabrasTaco:
-        if palabra in tweet:
-            i=i+1
-    if 'taco' in tweet and 'en' in tweet:
-        i=i+1
-    return i
-
-def ifAccidente(text):
-    palabras=['accidente','accidentes','panne','choque','volcamiento','colision']
-    i=0
-    tweet=text.lower().split(' ')
-    for palabra in palabras:
-        if palabra in tweet:
-            i=i+1
-    return i
-
 def addToDb(status):
     add_user=("INSERT INTO `USERS` (`ID_USER`,`NAME`,`TIMEZONE`,`LANGUAGE`,`FOLLOWERS`,`DESCRIPTION`) VALUES (%s,%s,%s,%s,%s,%s)")
     data_user=(status.user.id_str,status.user.name,status.user.time_zone,status.user.lang,status.user.followers_count,status.user.description)
 
-    add_tweet=("INSERT INTO `tweets` (`text`,`created_at`,`retweets`,`id_user`,`location`,`sorce`,`coordinates`,`geoenable`,`id_twitter`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+    add_tweet=("INSERT INTO `TWEETS` (`TEXT`,`CREATED_AT`,`RETWEETS`,`ID_USER`,`LOCATION`,`SOURCE`,`COORDINATES`,`GEOENABLE`,`ID_TWITTER`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
     data_tweet=(status.text.econde('utf8'),status.created_at,status.retweet_count,status.user.id_str,status.user.location,status.source,status.coordinates.encode('utf8'),status.user.geo_enabled,status.id_str)
 
     add_incident=("INSERT INTO `INCIDENTS` (`ID_TWEET`,`ID_ITYPE`) VALUES (%s,%s)")
@@ -56,32 +35,18 @@ class StreamWatcherListener(tweepy.StreamListener):
 #            print(status.coordinates[u'coordinates'])
             if status.coordinates:
                 coor=status.coordinates[u'coordinates']
-                lat=coor[1]
-                lon=coor[0]
-               # print coor[0],coor[1]
             else:
                 coor=""
-                lat=0
-                lon=0
 
             add_user=("INSERT INTO `USERS` (`ID_USER`,`NAME`,`TIMEZONE`,`LANGUAGE`,`FOLLOWERS`,`DESCRIPTION`) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE FOLLOWERS="+str(status.user.followers_count))
             data_user=(status.user.id_str,status.user.name,status.user.time_zone,status.user.lang,status.user.followers_count,status.user.description)
-            add_tweet=("INSERT INTO `tweets` (`text`,`created_at`,`retweets`,`id_user`,`source`,`coordinates`,`geoenable`,`id_twitter`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)")
- 
-            data_tweet=(status.text,status.created_at,status.retweet_count,status.user.id_str,status.source,str(lat)+"|"+str(lon),status.user.geo_enabled,status.id_str)
+
+            add_tweet=("INSERT INTO `TWEETS` (`TEXT`,`CREATED_AT`,`RETWEETS`,`ID_USER`,`LOCATION`,`SOURCE`,`COORDINATES`,`GEOENABLE`,`ID_TWITTER`) VALUES (%s,%s,%s,%s,%s,%s,\"%s\",%s,%s)")
+            data_tweet=(status.text,status.created_at,status.retweet_count,status.user.id_str,status.user.location,status.source,coor,status.user.geo_enabled,status.id_str)
 #            print(add_tweet,data_tweet)
-            add_incident=("INSERT INTO `incidents` (`tweet_id`,`itype_id`,`latitude`,`longitude`,created_at) VALUES (%s,%s,%s,%s,NOW())")
-            if(ifTaco(status.text)>=1 and lat!=0):
-                data_incident=(status.id_str,1,lat,lon)
-                cursor.execute(add_incident,data_incident)
-                print '--SE HA DETECTADO TACO!!\n--'+status.text
-            if(ifAccidente(status.text)>=1 and lat!=0):
-                data_incident=(status.id_str,2,lat,lon)
-                cursor.execute(add_incident,data_incident)
-                print '--SE HA DETECTADO ACCIDENTE!!\n--'+status.text
-
-
- #cursor.execute(add_user,data_user)
+            add_incident=("INSERT INTO `INCIDENTS` (`ID_TWEET`,`ID_ITYPE`) VALUES (%s,%s)")
+            data_incident=(1,2)
+            cursor.execute(add_user,data_user)
             cursor.execute(add_tweet,data_tweet)
             db2.commit()
             cursor.close()
