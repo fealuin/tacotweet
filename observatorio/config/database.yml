@@ -1,4 +1,4 @@
-
+# MySQL.  Versions 5.0+ are recommended.
 #
 # Install the MYSQL driver
 #   gem install mysql2
@@ -14,10 +14,9 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: c0c0dr1l0
+  password: rigogf2014
   socket: /var/run/mysqld/mysqld.sock
-  host: deb1.cceocrswyems.us-west-2.rds.amazonaws.com
-  port: 3306
+
 development:
   <<: *default
   database: observatorio_development
