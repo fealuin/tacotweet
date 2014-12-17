@@ -5,12 +5,49 @@ class IncidentsController < ApplicationController
   # GET /incidents.json
   def index
     @incidents = Incident.all
+    @incident_map = Incident.select(:id,:latitude,:longitude,:text,:itype_id)
+    @incident_graf=Incident.find_by_sql("select count(*) as Cuenta, date_format(created_at,'%d/%m/%y') as Fecha, if(itype_id=1,'A','T') AS Tipo  From incidents group by Fecha,Tipo")
+    @incident_fechas=Incident.select(:created_at).group(:created_at)
+    @incident_accidentes=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>1).count
+    @incident_graf=Incident.find_by_sql("select count(*) as Cuenta, date_format(created_at,'%d/%m/%y') as Fecha, if(itype_id=1,'A','T') AS Tipo  From incidents group by Fecha,Tipo")
+    @incident_taco=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>2).count
+
+
+
   end
 
   # GET /incidents/1
   # GET /incidents/1.json
   def show
   end
+
+  # Get
+  def mapa
+    @incident_map = Incident.select(:id,:latitude,:longitude,:text)
+    respond_to do |format|
+    format.html
+    format.json {
+      render:json=>@incident_map.to_json
+    }
+    end
+  end
+
+  def grafico
+    @incident_graf=Incident.find_by_sql("select count(*) as Cuenta, date_format(created_at,'%d/%m/%y') as Fecha, if(itype_id=1,'A','T') AS Tipo  From incidents group by Fecha,Tipo")
+  end
+
+  def fechas
+    @incident_fechas=Incident.select(:created_at).group(:created_at)
+  end
+
+  def accidentes
+    @incident_accidentes=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>1).count
+  end
+
+  def taco
+    @incident_taco=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>2).count
+  end
+ 
 
   # GET /incidents/new
   def new
@@ -70,5 +107,6 @@ class IncidentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def incident_params
       params[:incident]
+      params.require(:incident).permit(:created_at,:latitude,:longitude)
     end
 end

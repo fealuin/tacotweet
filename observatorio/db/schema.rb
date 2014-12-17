@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141214224432) do
+ActiveRecord::Schema.define(version: 20141217055112) do
 
   create_table "incident_types", force: true do |t|
     t.string   "itype_desc", limit: 40
@@ -20,12 +20,13 @@ ActiveRecord::Schema.define(version: 20141214224432) do
   end
 
   create_table "incidents", force: true do |t|
-    t.datetime "created_at"
+    t.date     "created_at"
     t.datetime "updated_at"
     t.string   "tweet_id"
     t.integer  "itype_id"
     t.decimal  "latitude",   precision: 9, scale: 6
     t.decimal  "longitude",  precision: 9, scale: 6
+    t.string   "text"
   end
 
   add_index "incidents", ["itype_id"], name: "index_incidents_on_itype_id", using: :btree

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
-  get 'welcome/index'
+  root 'incidents#index'
+  get 'incidents/index'
 
   resources :tweets
 
