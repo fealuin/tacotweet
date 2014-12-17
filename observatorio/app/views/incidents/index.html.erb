@@ -21,12 +21,12 @@ var locations=[
 <% len=@incident_map.length%>
  <%  desc=""%>
 <% @incident_map.each_with_index do |incident_map,index| %>
-<%  if(incident_map.itype_id==1) %>
+<%  if(incident_map.itype_id==2) %>
 <%      desc="Accidente" %>
 <%    else %>
 <%      desc="Taco"%>
 <%end%>
-  ['<%= desc =%>',<%= incident_map.latitude =%>,<%= incident_map.longitude =%>,<%=incident_map.id=%>]
+  ["<%= desc =%> <%=incident_map.text.chars.select{|i| i.valid_encoding?}.join.delete("\n") =%>",<%= incident_map.latitude =%>,<%= incident_map.longitude =%>,<%=incident_map.id=%>]
   <%if index+1!=len%>
   <%= "," =%>
   <% end %>

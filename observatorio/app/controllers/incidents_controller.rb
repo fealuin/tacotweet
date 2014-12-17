@@ -5,12 +5,12 @@ class IncidentsController < ApplicationController
   # GET /incidents.json
   def index
     @incidents = Incident.all
-    @incident_map = Incident.select(:id,:latitude,:longitude,:text,:itype_id)
+    @incident_map =Incident.select(:id,:latitude,:longitude,:text,:itype_id).where(created_at: 2.days.ago..Time.now) 
     @incident_graf=Incident.find_by_sql("select count(*) as Cuenta, date_format(created_at,'%d/%m/%y') as Fecha, if(itype_id=1,'A','T') AS Tipo  From incidents group by Fecha,Tipo")
     @incident_fechas=Incident.select(:created_at).group(:created_at)
-    @incident_accidentes=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>1).count
+    @incident_accidentes=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>2).count
     @incident_graf=Incident.find_by_sql("select count(*) as Cuenta, date_format(created_at,'%d/%m/%y') as Fecha, if(itype_id=1,'A','T') AS Tipo  From incidents group by Fecha,Tipo")
-    @incident_taco=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>2).count
+    @incident_taco=Incident.select(:created_at).group(:created_at,:itype_id).having(:itype_id=>1).count
 
 
 

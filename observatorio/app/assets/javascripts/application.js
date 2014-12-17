@@ -17,7 +17,6 @@
 //= require_tree .
 //= require twitter/bootstrap
 //= require turbolinks
-//= require_tree
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/adapters/mootools-adapter
@@ -38,3 +37,5 @@
 //= require highcharts/themes/skies
 //= require highstock
 //= require highstock/highcharts-more
+
+//= require_tree
