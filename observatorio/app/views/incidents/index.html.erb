@@ -26,7 +26,7 @@ var locations=[
 <%    else %>
 <%      desc="Taco"%>
 <%end%>
-  ["<%= desc =%> <%=incident_map.text.chars.select{|i| i.valid_encoding?}.join.delete("\n") =%>",<%= incident_map.latitude =%>,<%= incident_map.longitude =%>,<%=incident_map.id=%>]
+  ["<%= incident_map.timestamp.strftime("%d/%m/%y %H:%M:%S") =%> <%= desc =%>: <%=incident_map.text.chars.select{|i| i.valid_encoding?}.join.delete("\n") =%>",<%= incident_map.latitude =%>,<%= incident_map.longitude =%>,<%=incident_map.id=%>]
   <%if index+1!=len%>
   <%= "," =%>
   <% end %>
@@ -42,6 +42,7 @@ var locations=[
 
     <div align="center" ><h1> Observatorio </h1><br></div>
     <div id="orders_chart" style="width: 560px; height: 300px;"></div>
+<h3>Ultimo tweet analizado: <%= (@incident_ultimo.created_at-3.hours).strftime("%d/%m/%y %H:%M:%S") =%>, Total tweets analizados: <%=number_with_delimiter(@tweet_total,delimiter:".")=%></h3>
 
     
     <h2>Mapa Tacos y Accidentes</h2>
@@ -93,7 +94,7 @@ var locations=[
           tooltip: {
               headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
               pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                  '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                  '<td style="padding:0"><b>{point.y} </b></td></tr>',
               footerFormat: '</table>',
               shared: true,
               useHTML: true
@@ -106,6 +107,7 @@ var locations=[
           },
           series: [{
               name: 'Accidente',
+              color: '#FC0404',
               data: [
 <% len=@incident_accidentes.length %>
 <% @incident_accidentes.each_with_index do |incident_accidentes,index| %>
@@ -119,6 +121,7 @@ var locations=[
 
           }, {
               name: 'Taco',
+              color: '#26EE03',
               data: [
 <% len=@incident_taco.length %>
 <% @incident_taco.each_with_index do |incident_taco,index| %>
@@ -135,5 +138,6 @@ var locations=[
         });  
       }); 
     </script>
+
   </body>
 </html>

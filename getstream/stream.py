@@ -68,13 +68,13 @@ class StreamWatcherListener(tweepy.StreamListener):
  
             data_tweet=(status.text.encode('utf8'),status.created_at,status.retweet_count,status.user.id_str,status.source,str(lat)+"|"+str(lon),status.user.geo_enabled,status.id_str)
 #            print(add_tweet,data_tweet)
-            add_incident=("INSERT INTO `incidents` (`tweet_id`,`itype_id`,`latitude`,`longitude`,created_at) VALUES (%s,%s,%s,%s,NOW())")
+            add_incident=("INSERT INTO `incidents` (`tweet_id`,`itype_id`,`latitude`,`longitude`,created_at,text,timestamp) VALUES (%s,%s,%s,%s,DATE_ADD(NOW(),INTERVAL -3 HOUR),%s,DATE_ADD(NOW(),INTERVAL -3 HOUR))")
             if(ifTaco(status.text)>=2 and lat!=0):
-                data_incident=(status.id_str,1,lat,lon)
+                data_incident=(status.id_str,1,lat,lon,status.text.encode('utf8'))
                 cursor.execute(add_incident,data_incident)
                 print '--SE HA DETECTADO TACO!!\n--'+status.text
             if(ifAccidente(status.text)>=2 and lat!=0):
-                data_incident=(status.id_str,2,lat,lon)
+                data_incident=(status.id_str,2,lat,lon,status.text.encode('utf8'))
                 cursor.execute(add_incident,data_incident)
                 print '--SE HA DETECTADO ACCIDENTE!!\n--'+status.text
 
